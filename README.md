@@ -24,6 +24,10 @@ var b = true; typeof b; // "boolean"
 var s = "string"; typeof s; // "string"
 var a = []; typeof a; // "object"
 var o = {}; typeof o; // "object"
+
+// Let and const
+let x = 123;
+const X = 123;
 ```
 
 ## Console
@@ -175,6 +179,29 @@ function execute(){
 }
 ```
 
+## Objects
+```
+var obj = {};
+obj.x = "prop x";
+obj.xFn = function(){};
+obj[x]; // -> "prop x"
+```
+
+## Function
+```
+// Constructor Style
+function fn (){
+}
+
+// Variable Style
+var fn = function(){
+}
+
+// Anonymus
+var element = document.getElementById("id");
+element.addEventListener("click", function(){}, false);
+```
+
 ## IIFE
 ```
 (function(){
@@ -199,6 +226,10 @@ function myFunction(){
 
 ## Event Bubbling
 ```
+var elements = document.querySelectorAll(".class");
+elements.forEach(function(elem){
+    elem.addEventListener("click", function(){}, false);
+});
 ```
 
 ## Classes and Objects
@@ -218,26 +249,103 @@ book1 instanceof Object; // true
 
 ## Private, privileged and proto functions
 ```
+function Entity(){
+    this.id = 123;
+    var name = "test name";
+
+    // Private
+    var setName = function(newName){
+        if(typeof newName === "string"){
+            name = newName;
+        }
+    }
+
+    // Privileged
+    this.setName = function(newName){
+        if(typeof newName === "string"){
+                name = newName;
+            }
+    }
+}
+// Prototyping
+Entity.prototype.getId = function(){
+    return this.id;
+}
 ```
 
 ## Inheritance
 ```
+function Person(age, gender){
+    this.age = age || 0;
+    this.gender = gender || "not set";
+}
+function Man(age){
+    Person.call(this, age, "male");
+}
+Man.prototype = Object.create(Person.prototype);
+Man.prototype.constructor = Man;
 ```
 
 ## Call or Apply
 ```
+Entity.call(this, arg1, arg2, arg3);
+Entity.apply(this, [arg1, arg2, arg3]);
 ```
 
 ## Prototyping
 ```
+Array.prototype.quickSort = function(){
+    var self = this; // this -> Array
+};
+String.prototype.replaceAll = function(){
+    var self = this; // this -> String
+};
+Object.prototype.newFn = function(){
+    var self = this; // this -> Object
+};
+// Entity prototyping
+function Entity(){
+}
+Entity.prototype.getSomething = function(){}
 ```
 
 ## Singleton Pattern
 ```
+var Model = (function(){
+
+    function M(){
+    }
+
+    var instance;
+    return {
+        getInstance: function(){
+            if(!instance){
+                instance = new M();
+            }
+            return instance;
+        }
+    };
+
+})();
+var MODEL1 = Model.getInstance();
+var MODEL2 = Model.getInstance();
+(MODEL1 === MODEL2) // true
 ```
 
 ## XMLHTTPRequest
 ```
+var req = new XMLHTTPRequest();
+req.open("GET", "http://api.example.com/entity");
+req.onload = function(){
+    if(req.responseStatus === 200){
+        //success
+        console.log(req.response);
+    }
+    else{
+        // ?
+    }
+};
+req.open();
 ```
 
 ## Promises
@@ -266,6 +374,6 @@ var p = new Promise(function(resolve, reject){
 ```
 ```
 
-## Workers
+## Service Workers
 ```
 ```
