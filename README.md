@@ -202,6 +202,22 @@ var element = document.getElementById("id");
 element.addEventListener("click", function(){}, false);
 ```
 
+## Currying
+```
+function add(a,b){
+    if(a && b){
+        return a+b;
+    }
+    return function (b){
+        return a+b;
+    }
+}
+var add3 = add(3);
+add3(4); // -> 7
+add(3)(4); // -> 7
+add(3,4); // -> 7
+```
+
 ## IIFE
 ```
 (function(){
